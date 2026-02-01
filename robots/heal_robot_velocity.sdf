@@ -1,0 +1,793 @@
+<sdf version='1.11'>
+  <model name='robot'>
+    <link name='base_link'>
+      <inertial>
+        <pose>0 0 0.019 0 0 0</pose>
+        <mass>3.7290000000000001</mass>
+        <inertia>
+          <ixx>0.016307105999999998</ixx>
+          <ixy>-2.0789999999999999e-06</ixy>
+          <ixz>1.378e-06</ixz>
+          <iyy>0.016302833999999999</iyy>
+          <iyz>-4.9980000000000003e-06</iyz>
+          <izz>0.022458155</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='base_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941174984 0.941174984 0.941174984 1</diffuse>
+          <ambient>0.941174984 0.941174984 0.941174984 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='joint1' type='revolute'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>link1</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.1415926535897931</lower>
+          <upper>3.1415926535897931</upper>
+          <effort>150</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='link1'>
+      <pose relative_to='joint1'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.012540000000000001 0 0.27200000000000002 0 0 0</pose>
+        <mass>7.9189999999999996</mass>
+        <inertia>
+          <ixx>0.044879950000000002</ixx>
+          <ixy>-7.3459999999999996e-06</ixy>
+          <ixz>-0.006377064</ixz>
+          <iyy>0.047389946000000002</iyy>
+          <iyz>-1.5340000000000001e-06</iyz>
+          <izz>0.015930026999999999</izz>
+        </inertia>
+      </inertial>
+      <collision name='link1_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/link1.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='link1_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/link1.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941174984 0.941174984 0.941174984 1</diffuse>
+          <ambient>0.941174984 0.941174984 0.941174984 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='joint2' type='revolute'>
+      <pose relative_to='link1'>0 0 0.34599999999999997 0 0 0</pose>
+      <parent>link1</parent>
+      <child>link2</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-2.0499999999999998</lower>
+          <upper>0.75</upper>
+          <effort>150</effort>
+          <velocity>1</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='link2'>
+      <pose relative_to='joint2'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.10537000000000001 0 0.14998 0 0 0</pose>
+        <mass>1.0169999999999999</mass>
+        <inertia>
+          <ixx>0.016383576</ixx>
+          <ixy>0</ixy>
+          <ixz>5.0100000000000005e-07</ixz>
+          <iyy>0.015505423000000001</iyy>
+          <iyz>8.3217000000000003e-06</iyz>
+          <izz>0.0014532639999999999</izz>
+        </inertia>
+      </inertial>
+      <collision name='link2_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/link2.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='link2_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/link2.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941174984 0.941174984 0.941174984 1</diffuse>
+          <ambient>0.941174984 0.941174984 0.941174984 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='joint3' type='revolute'>
+      <pose relative_to='link2'>0 0 0.30499999999999999 0 0 0</pose>
+      <parent>link2</parent>
+      <child>link3</child>
+      <axis>
+        <xyz>-1 0 0</xyz>
+        <limit>
+          <lower>-1</lower>
+          <upper>1</upper>
+          <effort>150</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='link3'>
+      <pose relative_to='joint3'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.01755 0.033590000000000002 0 0 0 0</pose>
+        <mass>5.5739999999999998</mass>
+        <inertia>
+          <ixx>0.021340531999999999</ixx>
+          <ixy>0.0033048439999999999</ixy>
+          <ixz>-1.2974000000000001e-06</ixz>
+          <iyy>0.0098410270000000005</iyy>
+          <iyz>1.3202e-05</iyz>
+          <izz>0.023306443</izz>
+        </inertia>
+      </inertial>
+      <collision name='link3_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/link3.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='link3_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/link3.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941174984 0.941174984 0.941174984 1</diffuse>
+          <ambient>0.941174984 0.941174984 0.941174984 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='joint4' type='revolute'>
+      <pose relative_to='link3'>-0.00091270000000000001 0.36813000000000001 0 0 0 0</pose>
+      <parent>link3</parent>
+      <child>link4</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.1415926535897931</lower>
+          <upper>3.1415926535897931</upper>
+          <effort>80</effort>
+          <velocity>1</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='link4'>
+      <pose relative_to='joint4'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.050650000000000001 -0.10589999999999999 0 0 0 0</pose>
+        <mass>1.8939999999999999</mass>
+        <inertia>
+          <ixx>0.003626317</ixx>
+          <ixy>-0.00060094200000000003</ixy>
+          <ixz>2.7499999999999999e-06</ixz>
+          <iyy>0.0023313700000000001</iyy>
+          <iyz>3.309e-06</iyz>
+          <izz>0.004130374</izz>
+        </inertia>
+      </inertial>
+      <collision name='link4_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/link4.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='link4_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/link4.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941174984 0.941174984 0.941174984 1</diffuse>
+          <ambient>0.941174984 0.941174984 0.941174984 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='joint5' type='revolute'>
+      <pose relative_to='link4'>0 0 0 0 0 0</pose>
+      <parent>link4</parent>
+      <child>link5</child>
+      <axis>
+        <xyz>-0.5 0.86602999999999997 0</xyz>
+        <limit>
+          <lower>-3.1415926535897931</lower>
+          <upper>3.1415926535897931</upper>
+          <effort>80</effort>
+          <velocity>1</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='link5'>
+      <pose relative_to='joint5'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.00216 -0.0035999999999999999 -0.046030000000000001 0 0 0</pose>
+        <mass>1.7909999999999999</mass>
+        <inertia>
+          <ixx>0.0025163379999999999</ixx>
+          <ixy>6.5634000000000002e-05</ixy>
+          <ixz>-0.000102333</ixz>
+          <iyy>0.00244261</iyy>
+          <iyz>0.000185747</iyz>
+          <izz>0.00185754</izz>
+        </inertia>
+      </inertial>
+      <collision name='link5_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/link5.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='link5_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/link5.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941174984 0.941174984 0.941174984 1</diffuse>
+          <ambient>0.941174984 0.941174984 0.941174984 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='joint6' type='revolute'>
+      <pose relative_to='link5'>0 0 -0.097500000000000003 0 0 0</pose>
+      <parent>link5</parent>
+      <child>end-effector</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-3.1415926535897931</lower>
+          <upper>3.1415926535897931</upper>
+          <effort>80</effort>
+          <velocity>1</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='end-effector'>
+      <pose relative_to='joint6'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.000188494791101727 -2.0206376257903851e-10 -0.026083429191534981 0 0 0</pose>
+        <mass>0.36024499999999998</mass>
+        <inertia>
+          <ixx>0.00035480991954179789</ixx>
+          <ixy>5.7878774459007659e-10</ixy>
+          <ixz>-2.130655096200931e-06</ixz>
+          <iyy>0.00037246200776667608</iyy>
+          <iyz>-1.9747100976970761e-12</iyz>
+          <izz>0.00025640508822487811</izz>
+        </inertia>
+      </inertial>
+      <collision name='end-effector_fixed_joint_lump__robotiq_85_base_link_collision'>
+        <pose>0 0 0 -3.1415926535897931 7.3464102067096701e-06 -3.1415926535897931</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/robotiq_85_base_link_coarse.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='end-effector_fixed_joint_lump__robotiq_85_base_link_visual'>
+        <pose>0 0 0 -3.1415926535897931 7.3464102067096701e-06 -3.1415926535897931</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/robotiq_85_base_link_fine.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.125 0.125 0.125 1</diffuse>
+          <ambient>0.125 0.125 0.125 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='finger_joint' type='revolute'>
+      <pose relative_to='end-effector'>-0.030600683129318931 0 -0.062792241076404812 -3.1415926535897931 7.3464102067096701e-06 -3.1415926535897931</pose>
+      <parent>end-effector</parent>
+      <child>left_outer_knuckle</child>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0.72499999999999998</upper>
+          <effort>1000</effort>
+          <velocity>2</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='left_outer_knuckle'>
+      <pose relative_to='finger_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.029963609324396099 7.3987917737996071e-12 0.01610540717833521 0 0 0</pose>
+        <mass>0.034157787051438661</mass>
+        <inertia>
+          <ixx>1.045271492595582e-05</ixx>
+          <ixy>4.7261616712091368e-15</ixy>
+          <ixz>-9.2087743564593275e-07</ixz>
+          <iyy>1.123227025019358e-05</iyy>
+          <iyz>6.3557280311352324e-15</iyz>
+          <izz>4.7765291952124029e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='left_outer_knuckle_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/outer_knuckle_coarse.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='left_outer_knuckle_fixed_joint_lump__left_outer_finger_collision_1'>
+        <pose>0.031691044226654301 0 -0.0019339637572460501 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/outer_finger_coarse.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='left_outer_knuckle_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/outer_knuckle_fine.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.125 0.125 0.125 1</diffuse>
+          <ambient>0.125 0.125 0.125 1</ambient>
+        </material>
+      </visual>
+      <visual name='left_outer_knuckle_fixed_joint_lump__left_outer_finger_visual_1'>
+        <pose>0.031691044226654301 0 -0.0019339637572460501 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/outer_finger_fine.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.125 0.125 0.125 1</diffuse>
+          <ambient>0.125 0.125 0.125 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='left_inner_knuckle_joint' type='revolute'>
+      <pose relative_to='end-effector'>-0.012699490838482 0 -0.0693075932975033 -3.1415926535897931 7.3464102067096701e-06 -3.1415926535897931</pose>
+      <parent>end-effector</parent>
+      <child>left_inner_knuckle</child>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <mimic joint='finger_joint'>
+          <multiplier>1</multiplier>
+          <offset>0</offset>
+          <reference>0</reference>
+        </mimic>
+        <limit>
+          <lower>0</lower>
+          <upper>0.87570000000000003</upper>
+          <effort>1000</effort>
+          <velocity>2</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='left_inner_knuckle'>
+      <pose relative_to='left_inner_knuckle_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.017097546626628001 -3.9380852438953502e-10 0.022491843820186801 0 0 0</pose>
+        <mass>0.0110930853895903</mass>
+        <inertia>
+          <ixx>4.2339277069154103e-06</ixx>
+          <ixy>5.7489789369679997e-15</ixy>
+          <ixz>1.7885567711978799e-06</ixz>
+          <iyy>3.9654879052439201e-06</iyy>
+          <iyz>1.0546466636966899e-14</iyz>
+          <izz>3.24068002883007e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='left_inner_knuckle_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/inner_knuckle_coarse.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='left_inner_knuckle_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/inner_knuckle_fine.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.125 0.125 0.125 1</diffuse>
+          <ambient>0.125 0.125 0.125 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='left_inner_finger_joint' type='revolute'>
+      <pose relative_to='left_inner_knuckle'>0.034585310861294002 0 0.045497019381797503 0 0 0</pose>
+      <parent>left_inner_knuckle</parent>
+      <child>left_inner_finger</child>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <mimic joint='finger_joint'>
+          <multiplier>-1</multiplier>
+          <offset>0</offset>
+          <reference>0</reference>
+        </mimic>
+        <limit>
+          <lower>0</lower>
+          <upper>0.87570000000000003</upper>
+          <effort>1000</effort>
+          <velocity>2</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='left_inner_finger'>
+      <pose relative_to='left_inner_finger_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.0060275613594574003 -6.29183141465421e-15 0.0066992569313324103 0 0 0</pose>
+        <mass>0.0072425534616574498</mass>
+        <inertia>
+          <ixx>1.4782427405360301e-06</ixx>
+          <ixy>-3.9488446357030298e-19</ixy>
+          <ixz>-3.4526884764862201e-07</ixz>
+          <iyy>1.7006448083839501e-06</iyy>
+          <iyz>3.5059838910097001e-19</iyz>
+          <izz>4.7715133683836403e-07</izz>
+        </inertia>
+      </inertial>
+      <collision name='left_inner_finger_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/inner_finger_coarse.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='left_inner_finger_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/inner_finger_fine.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.125 0.125 0.125 1</diffuse>
+          <ambient>0.125 0.125 0.125 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='right_inner_knuckle_joint' type='revolute'>
+      <pose relative_to='end-effector'>0.012700509160832591 0 -0.069307406698756249 3.1415926535897931 -7.3464102067096701e-06 3.2310891489523635e-15</pose>
+      <parent>end-effector</parent>
+      <child>right_inner_knuckle</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <mimic joint='finger_joint'>
+          <multiplier>-1</multiplier>
+          <offset>0</offset>
+          <reference>0</reference>
+        </mimic>
+        <limit>
+          <lower>0</lower>
+          <upper>0.87570000000000003</upper>
+          <effort>1000</effort>
+          <velocity>2</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_inner_knuckle'>
+      <pose relative_to='right_inner_knuckle_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.016860618677377599 3.93808471820465e-10 0.022669995079343402 0 0 0</pose>
+        <mass>0.0110930853895903</mass>
+        <inertia>
+          <ixx>4.2713477593988198e-06</ixx>
+          <ixy>-8.53568456728898e-15</ixy>
+          <ixz>1.7777422994424599e-06</ixz>
+          <iyy>3.9654879052439201e-06</iyy>
+          <iyz>-8.4510802491416397e-15</iyz>
+          <izz>3.2032599763466601e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_inner_knuckle_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/inner_knuckle_coarse.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='right_inner_knuckle_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/inner_knuckle_fine.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.125 0.125 0.125 1</diffuse>
+          <ambient>0.125 0.125 0.125 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='right_inner_finger_joint' type='revolute'>
+      <pose relative_to='right_inner_knuckle'>0.034106047545740599 0 0.045857387854168798 0 0 0</pose>
+      <parent>right_inner_knuckle</parent>
+      <child>right_inner_finger</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <mimic joint='finger_joint'>
+          <multiplier>1</multiplier>
+          <offset>0</offset>
+          <reference>0</reference>
+        </mimic>
+        <limit>
+          <lower>0</lower>
+          <upper>0.87570000000000003</upper>
+          <effort>1000</effort>
+          <velocity>2</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_inner_finger'>
+      <pose relative_to='right_inner_finger_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.0060275622881203802 -6.4728450948017604e-15 0.0066992560957810799 0 0 0</pose>
+        <mass>0.0072425534616574402</mass>
+        <inertia>
+          <ixx>1.4782428362595699e-06</ixx>
+          <ixy>-3.9595206401912299e-19</ixy>
+          <ixz>-3.4526870887554301e-07</ixz>
+          <iyy>1.7006448083839399e-06</iyy>
+          <iyz>3.5528650796002898e-19</iyz>
+          <izz>4.77151241114822e-07</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_inner_finger_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/inner_finger_coarse.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='right_inner_finger_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/inner_finger_fine.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.125 0.125 0.125 1</diffuse>
+          <ambient>0.125 0.125 0.125 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='right_outer_knuckle_joint' type='revolute'>
+      <pose relative_to='end-effector'>0.030601605720972761 0 -0.062791791459285332 3.1415926535897931 -7.3464102067096701e-06 3.2310891489523635e-15</pose>
+      <parent>end-effector</parent>
+      <child>right_outer_knuckle</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <mimic joint='finger_joint'>
+          <multiplier>-1</multiplier>
+          <offset>0</offset>
+          <reference>0</reference>
+        </mimic>
+        <limit>
+          <lower>0</lower>
+          <upper>0.87570000000000003</upper>
+          <effort>1000</effort>
+          <velocity>2</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_outer_knuckle'>
+      <pose relative_to='right_outer_knuckle_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.029792982962518349 7.225539452633218e-12 0.016418897357880831 0 0 0</pose>
+        <mass>0.034157787051108217</mass>
+        <inertia>
+          <ixx>1.0493644890844099e-05</ixx>
+          <ixy>4.5547788215808517e-15</ixy>
+          <ixz>-9.7164038559421712e-07</ixz>
+          <iyy>1.1232270250898259e-05</iyy>
+          <iyz>6.3025264306590153e-15</iyz>
+          <izz>4.7355992309632103e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_outer_knuckle_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/outer_knuckle_coarse.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='right_outer_knuckle_fixed_joint_lump__right_outer_finger_collision_1'>
+        <pose>0.031709590936724603 0 -0.0016013564954687001 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/outer_finger_coarse.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='right_outer_knuckle_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/outer_knuckle_fine.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.125 0.125 0.125 1</diffuse>
+          <ambient>0.125 0.125 0.125 1</ambient>
+        </material>
+      </visual>
+      <visual name='right_outer_knuckle_fixed_joint_lump__right_outer_finger_visual_1'>
+        <pose>0.031709590936724603 0 -0.0016013564954687001 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file://meshes/outer_finger_fine.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.125 0.125 0.125 1</diffuse>
+          <ambient>0.125 0.125 0.125 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <frame name='joint7' attached_to='end-effector'>
+      <pose>0 0 0 -3.1415926535897931 7.3464102067096709e-06 -3.1415926535897931</pose>
+    </frame>
+    <frame name='robotiq_85_base_link' attached_to='joint7'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='left_outer_finger_joint' attached_to='left_outer_knuckle'>
+      <pose>0.031691044226654301 0 -0.0019339637572460501 0 0 0</pose>
+    </frame>
+    <frame name='left_outer_finger' attached_to='left_outer_finger_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='right_outer_finger_joint' attached_to='right_outer_knuckle'>
+      <pose>0.031709590936724603 0 -0.0016013564954687001 0 0 0</pose>
+    </frame>
+    <frame name='right_outer_finger' attached_to='right_outer_finger_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+  <plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController"><joint_name>joint1</joint_name><topic>/model/cobot/joint/joint1/cmd_vel</topic><use_velocity_commands>true</use_velocity_commands></plugin>
+<plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController"><joint_name>joint2</joint_name><topic>/model/cobot/joint/joint2/cmd_vel</topic><use_velocity_commands>true</use_velocity_commands></plugin>
+<plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController"><joint_name>joint3</joint_name><topic>/model/cobot/joint/joint3/cmd_vel</topic><use_velocity_commands>true</use_velocity_commands></plugin>
+<plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController"><joint_name>joint4</joint_name><topic>/model/cobot/joint/joint4/cmd_vel</topic><use_velocity_commands>true</use_velocity_commands></plugin>
+<plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController"><joint_name>joint5</joint_name><topic>/model/cobot/joint/joint5/cmd_vel</topic><use_velocity_commands>true</use_velocity_commands></plugin>
+<plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController"><joint_name>joint6</joint_name><topic>/model/cobot/joint/joint6/cmd_vel</topic><use_velocity_commands>true</use_velocity_commands></plugin>
+</model>
+</sdf>
