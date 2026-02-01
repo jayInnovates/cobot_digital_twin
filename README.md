@@ -16,40 +16,41 @@ This digital twin implements **TRUE** control modes matching the real Synchro 5 
 |------------|--------------|-------------|
 | **Position** | position → PID → effort | Joint position control with PID feedback |
 | **Velocity** | velocity → direct | Direct velocity control (NO kinematics conversion) |
+| **Effort** | effort → direct | Direct torque control (NO gravity compensation) |
 
 ### ✨ Key Features
 
+- ✅ **Three Control Modes** - Position, Velocity, and Effort
 - ✅ **No Controller Overriding** - Separate world files for each control mode
 - ✅ **Direct Velocity Control** - Not through inverse kinematics
+- ✅ **Direct Effort Control** - Raw torque commands without gravity compensation
 - ✅ **ROS2 Topic Bridging** - Standard Float64MultiArray interface
 - ✅ **Same Interface as Real Robot** - Easy to switch between simulation and hardware
-- ✅ **Single System Ready** - Run everything on one Ubuntu machine with GUI
 
 ---
 
 ## 📁 Project Structure
 ```
 cobot_digital_twin/
-├── README.md                     # This file
-├── INSTALL.md                    # Detailed installation guide
+├── README.md
+├── INSTALL.md
+├── LICENSE
 ├── robots/
-│   ├── heal_robot_position.sdf   # Robot with 6 JointPositionController
-│   └── heal_robot_velocity.sdf   # Robot with 6 JointController
+│   ├── heal_robot_position.sdf   # 6 JointPositionController
+│   ├── heal_robot_velocity.sdf   # 6 JointController (velocity)
+│   └── heal_robot_effort.sdf     # 6 JointController (force)
 ├── worlds/
-│   ├── cobot_world_position.sdf  # World for position control mode
-│   └── cobot_world_velocity.sdf  # World for velocity control mode
+│   ├── cobot_world_position.sdf
+│   ├── cobot_world_velocity.sdf
+│   └── cobot_world_effort.sdf
 ├── scripts/
-│   ├── simple_bridge.py          # ROS2 <-> Gazebo bridge
-│   ├── start_position.sh         # Quick start position mode
-│   └── start_velocity.sh         # Quick start velocity mode
+│   ├── simple_bridge.py
+│   ├── start_position.sh
+│   └── start_velocity.sh
 ├── meshes/                       # 17 STL mesh files
-│   ├── base_link.STL
-│   ├── link1.STL - link5.STL
-│   ├── end_effector.STL
-│   └── (gripper meshes)
 └── docs/
-    ├── ARCHITECTURE.md           # System architecture
-    └── TROUBLESHOOTING.md        # Common issues & solutions
+    ├── ARCHITECTURE.md
+    └── TROUBLESHOOTING.md
 ```
 
 ---
@@ -61,124 +62,113 @@ cobot_digital_twin/
 | Ubuntu | 22.04 or 24.04 |
 | Gazebo | Harmonic (gz-sim8) |
 | ROS2 | Humble Hawksbill |
-| Python | 3.10+ |
+
+### Install Dependencies
+```bash
+sudo apt update
+sudo apt install gz-harmonic ros-humble-desktop
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
 
 ---
 
 ## 🚀 Quick Start
 
-### 1. Clone Repository
+### Clone Repository
 ```bash
 cd ~
 git clone https://github.com/jayInnovates/cobot_digital_twin.git
 cd cobot_digital_twin
 ```
 
-### 2. Install Dependencies
-```bash
-# Install Gazebo Harmonic
-sudo apt update
-sudo apt install gz-harmonic
+---
 
-# Install ROS2 Humble (if not installed)
-sudo apt install ros-humble-desktop
+## 🎮 Position Control Mode
 
-# Add ROS2 to bashrc
-echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
-source ~/.bashrc
-```
-
-### 3. Run Position Control Mode
-
-**Terminal 1 - Gazebo Server + GUI:**
+**Terminal 1 - Gazebo:**
 ```bash
 cd ~/cobot_digital_twin
 export GZ_SIM_RESOURCE_PATH=$(pwd):$(pwd)/meshes
 gz sim worlds/cobot_world_position.sdf -r
 ```
 
-**Terminal 2 - ROS2 Bridge:**
+**Terminal 2 - Bridge:**
 ```bash
 cd ~/cobot_digital_twin
 source /opt/ros/humble/setup.bash
 python3 scripts/simple_bridge.py
 ```
 
-**Terminal 3 - Send Commands:**
+**Terminal 3 - Commands:**
 ```bash
 source /opt/ros/humble/setup.bash
 
-# Move robot to position (radians)
+# Move to position (radians)
 ros2 topic pub --once /position_controller/commands std_msgs/msg/Float64MultiArray "{data: [0.5, -0.3, 0.2, 0.0, 0.1, 0.0]}"
 
-# Return to home
+# Return home
 ros2 topic pub --once /position_controller/commands std_msgs/msg/Float64MultiArray "{data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}"
 ```
 
-### 4. Run Velocity Control Mode
+---
 
-**Terminal 1 - Gazebo Server + GUI:**
+## 🎮 Velocity Control Mode
+
+**Terminal 1 - Gazebo:**
 ```bash
 cd ~/cobot_digital_twin
 export GZ_SIM_RESOURCE_PATH=$(pwd):$(pwd)/meshes
 gz sim worlds/cobot_world_velocity.sdf -r
 ```
 
-**Terminal 2 - ROS2 Bridge:**
+**Terminal 2 - Bridge:**
 ```bash
 cd ~/cobot_digital_twin
 source /opt/ros/humble/setup.bash
 python3 scripts/simple_bridge.py
 ```
 
-**Terminal 3 - Send Commands:**
+**Terminal 3 - Commands:**
 ```bash
 source /opt/ros/humble/setup.bash
 
-# Rotate joint 1 continuously at 0.3 rad/s
+# Rotate joint 1 at 0.3 rad/s (continuous)
 ros2 topic pub /velocity_controller/commands std_msgs/msg/Float64MultiArray "{data: [0.3, 0.0, 0.0, 0.0, 0.0, 0.0]}" -r 10
 
-# Press Ctrl+C to stop
+# Stop (Ctrl+C then send zeros)
+ros2 topic pub --once /velocity_controller/commands std_msgs/msg/Float64MultiArray "{data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}"
 ```
 
 ---
 
-## 📊 Architecture
+## 🎮 Effort Control Mode
+
+⚠️ **Warning:** Robot will fall under gravity! No gravity compensation in this mode.
+
+**Terminal 1 - Gazebo:**
+```bash
+cd ~/cobot_digital_twin
+export GZ_SIM_RESOURCE_PATH=$(pwd):$(pwd)/meshes
+gz sim worlds/cobot_world_effort.sdf -r
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                         USER COMMANDS                           │
-│     ros2 topic pub /position_controller/commands ...            │
-│     ros2 topic pub /velocity_controller/commands ...            │
-└───────────────────────────────┬─────────────────────────────────┘
-                                │
-                                ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                        ROS2 LAYER                               │
-│  /position_controller/commands    /velocity_controller/commands │
-│         (Float64MultiArray)              (Float64MultiArray)    │
-└───────────────────────────────┬─────────────────────────────────┘
-                                │
-                                ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    simple_bridge.py                             │
-│         Splits array[6] → 6 individual Gazebo topics            │
-└───────────────────────────────┬─────────────────────────────────┘
-                                │
-                                ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                     GAZEBO LAYER                                │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  Position Mode                      Velocity Mode               │
-│  ┌───────────────────┐             ┌───────────────────┐       │
-│  │JointPosition      │             │JointController    │       │
-│  │Controller (x6)    │             │(x6)               │       │
-│  │                   │             │                   │       │
-│  │ position → PID    │             │ velocity → direct │       │
-│  │         → effort  │             │                   │       │
-│  └───────────────────┘             └───────────────────┘       │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+
+**Terminal 2 - Bridge:**
+```bash
+cd ~/cobot_digital_twin
+source /opt/ros/humble/setup.bash
+python3 scripts/simple_bridge.py
+```
+
+**Terminal 3 - Commands:**
+```bash
+source /opt/ros/humble/setup.bash
+
+# Apply torque to joint 2 (Nm) - continuous
+ros2 topic pub /effort_controller/commands std_msgs/msg/Float64MultiArray "{data: [0.0, 50.0, 0.0, 0.0, 0.0, 0.0]}" -r 10
+
+# Stop
+ros2 topic pub --once /effort_controller/commands std_msgs/msg/Float64MultiArray "{data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}"
 ```
 
 ---
@@ -187,8 +177,9 @@ ros2 topic pub /velocity_controller/commands std_msgs/msg/Float64MultiArray "{da
 
 | Topic | Message Type | Description |
 |-------|--------------|-------------|
-| `/position_controller/commands` | `std_msgs/Float64MultiArray` | 6 joint positions (radians) |
-| `/velocity_controller/commands` | `std_msgs/Float64MultiArray` | 6 joint velocities (rad/s) |
+| `/position_controller/commands` | `Float64MultiArray` | 6 joint positions (radians) |
+| `/velocity_controller/commands` | `Float64MultiArray` | 6 joint velocities (rad/s) |
+| `/effort_controller/commands` | `Float64MultiArray` | 6 joint torques (Nm) |
 
 ### Joint Order (Array Index)
 
@@ -203,45 +194,37 @@ ros2 topic pub /velocity_controller/commands std_msgs/msg/Float64MultiArray "{da
 
 ---
 
-## 🎮 Direct Gazebo Control (Without ROS2)
-```bash
-# Position control - move joint 1 to 1.0 radian
-gz topic -t "/model/cobot/joint/joint1/cmd_pos" -m gz.msgs.Double -p "data: 1.0"
-
-# Velocity control - rotate joint 1 at 0.5 rad/s
-gz topic -t "/model/cobot/joint/joint1/cmd_vel" -m gz.msgs.Double -p "data: 0.5"
+## 📊 Control Flow
+```
+Position Mode:  command → PID Controller → effort → joint
+Velocity Mode:  command → direct velocity → joint
+Effort Mode:    command → direct torque → joint (NO gravity comp)
 ```
 
 ---
 
-## ⚙️ Controller Configuration
+## 🎮 Direct Gazebo Control (Without ROS2)
+```bash
+# Position
+gz topic -t "/model/cobot/joint/joint1/cmd_pos" -m gz.msgs.Double -p "data: 1.0"
 
-### Position Controller (PID Gains)
+# Velocity
+gz topic -t "/model/cobot/joint/joint1/cmd_vel" -m gz.msgs.Double -p "data: 0.5"
 
-| Joints | P Gain | I Gain | D Gain |
-|--------|--------|--------|--------|
-| 1-3 | 1000 | 50 | 100 |
-| 4-5 | 500 | 25 | 50 |
-| 6 | 200 | 10 | 20 |
-
-### Velocity Controller
-
-Direct velocity control with `use_velocity_commands: true`
+# Effort
+gz topic -t "/model/cobot/joint/joint1/cmd_effort" -m gz.msgs.Double -p "data: 10.0"
+```
 
 ---
 
 ## ⚠️ Known Limitations
 
-1. **Mimic Constraint Warning** - Gripper joints show mimic constraint error (harmless, gripper joints are fixed)
-2. **DART Mesh Collision** - Mesh collisions not supported in DART physics (visual-only meshes work fine)
+1. **Mimic Constraint Warning** - Gripper shows mimic constraint error (harmless)
+2. **Effort Mode Gravity** - Robot falls under gravity (by design, matches real robot)
 
 ---
 
 ## 🐛 Troubleshooting
-
-See [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) for common issues.
-
-### Quick Fixes
 
 **Robot not visible:**
 ```bash
@@ -249,28 +232,21 @@ export GZ_SIM_RESOURCE_PATH=$(pwd):$(pwd)/meshes
 ```
 
 **Commands not working:**
-```bash
-# Check bridge is running
-# Check correct world file loaded (position vs velocity)
-```
+- Ensure bridge is running
+- Ensure correct world file is loaded
 
 ---
 
 ## 📜 License
 
-MIT License - See LICENSE file
-
----
+MIT License
 
 ## 👤 Author
 
-**Jay Vishwakarma**
-- GitHub: [@jayInnovates](https://github.com/jayInnovates)
-
----
+**Jay Vishwakarma** - [@jayInnovates](https://github.com/jayInnovates)
 
 ## 🙏 Acknowledgments
 
 - Cobot Synchro 5 by Addverb Technologies
 - Gazebo by Open Robotics
-- ROS2 Humble by Open Robotics
+- ROS2 by Open Robotics
