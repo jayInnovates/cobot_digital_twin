@@ -221,7 +221,7 @@ gz topic -t "/model/cobot/joint/joint1/cmd_effort" -m gz.msgs.Double -p "data: 1
 
 1. **Mimic Constraint Warning** - Gripper shows mimic constraint error (harmless)
 2. **Effort Mode Gravity** - Robot falls under gravity (by design, matches real robot)
-
+3. **Gripper Visual Only** - DART physics engine doesn't support mimic constraints required by Robotiq 85 gripper. Arm controllers are fully functional.
 ---
 
 ## 🐛 Troubleshooting
